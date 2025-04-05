@@ -1,0 +1,47 @@
+# Miscellaneous
+isloverlay/*.class
+isloverlay/*.log
+isloverlay/*.pyc
+isloverlay/*.swp
+isloverlay/.DS_Store
+isloverlay/.atom/
+isloverlay/.build/
+isloverlay/.buildlog/
+isloverlay/.history
+isloverlay/.svn/
+isloverlay/.swiftpm/
+isloverlay/migrate_working_dir/
+isloverlay/venv/
+isloverlay/secret.env
+
+# IntelliJ related
+isloverlay/*.iml
+isloverlay/*.ipr
+isloverlay/*.iws
+isloverlay/.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+# isloverlay/.vscode/
+
+# Flutter/Dart/Pub related
+isloverlay/**/doc/api/
+isloverlay/**/ios/Flutter/.last_build_id
+isloverlay/.dart_tool/
+isloverlay/.flutter-plugins
+isloverlay/.flutter-plugins-dependencies
+isloverlay/.pub-cache/
+isloverlay/.pub/
+isloverlay/**/build/
+
+# Symbolication related
+isloverlay/app.*.symbols
+
+# Obfuscation related
+isloverlay/app.*.map.json
+
+# Android Studio build artifacts
+isloverlay/android/app/debug
+isloverlay/android/app/profile
+isloverlay/android/app/release
