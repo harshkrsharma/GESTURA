@@ -46,3 +46,52 @@ isloverlay/app.*.map.json
 isloverlay/android/app/debug
 isloverlay/android/app/profile
 isloverlay/android/app/release
+signpred/secret.env
+signpred/venv/
+
+#for signpred app
+# Miscellaneous
+signpred/*.class
+signpred/*.log
+signpred/*.pyc
+signpred/*.swp
+signpred/.DS_Store
+signpred/.atom/
+signpred/.build/
+signpred/.buildlog/
+signpred/.history
+signpred/.svn/
+signpred/.swiftpm/
+signpred/migrate_working_dir/
+
+# IntelliJ related
+signpred/*.iml
+signpred/*.ipr
+signpred/*.iws
+signpred/.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#signpred/.vscode/
+
+# Flutter/Dart/Pub related
+signpred/**/doc/api/
+signpred/**/ios/Flutter/.last_build_id
+signpred/.dart_tool/
+signpred/.flutter-plugins
+signpred/.flutter-plugins-dependencies
+signpred/.pub-cache/
+signpred/.pub/
+signpred/build/
+
+# Symbolication related
+signpred/app.*.symbols
+
+# Obfuscation related
+signpred/app.*.map.json
+
+# Android Studio will place build artifacts here
+signpred/android/app/debug
+signpred/android/app/profile
+signpred/android/app/release
