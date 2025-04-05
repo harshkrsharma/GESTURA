@@ -3,8 +3,8 @@ import json
 import os
 import numpy as np
 import mediapipe as mp
-import tkinter as tk
-from tkinter import ttk, simpledialog, messagebox
+import customtkinter as ctk
+from tkinter import simpledialog
 from PIL import Image, ImageTk
 
 # Initialize Mediapipe
@@ -47,12 +47,12 @@ def capture_frame(stage):
             landmarks = np.array([(lm.x, lm.y, lm.z) for lm in hand_landmarks.landmark], dtype=np.float32)
             normalized_landmarks = normalize_landmarks(landmarks)[keypoints_to_check]
             current_gesture[stage] = normalized_landmarks.tolist()
-            status_label.config(text=f"{stage} frame recorded!", foreground="green")
+            status_label.configure(text=f"{stage} frame recorded!", text_color="green")
 
 def save_gesture():
     global current_gesture
     if len(current_gesture) < 4:
-        status_label.config(text="Record all four keyframes (start, mid1, mid2, end)!", foreground="red")
+        status_label.configure(text="Record all four keyframes!", text_color="red")
         return
     
     gesture_name = simpledialog.askstring("Gesture Name", "Enter gesture name:")
@@ -60,7 +60,7 @@ def save_gesture():
         gesture_dict[gesture_name] = current_gesture.copy()
         with open(GESTURE_FILE, "w") as f:
             json.dump(gesture_dict, f, indent=4)
-        status_label.config(text=f"Gesture '{gesture_name}' saved successfully!", foreground="blue")
+        status_label.configure(text=f"Gesture '{gesture_name}' saved!", text_color="blue")
         current_gesture = {}
 
 def update_webcam():
@@ -73,8 +73,7 @@ def update_webcam():
             for hand_landmarks in results.multi_hand_landmarks:
                 mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
                 
-        img = Image.fromarray(frame)
-        img = img.resize((400, 300))
+        img = Image.fromarray(frame).resize((400, 300))
         imgtk = ImageTk.PhotoImage(image=img)
         webcam_label.imgtk = imgtk
         webcam_label.configure(image=imgtk)
@@ -83,38 +82,40 @@ def update_webcam():
 def close_app():
     cap.release()
     cv2.destroyAllWindows()
-    root.quit()
+    root.destroy()
 
-root = tk.Tk()
+# Modern UI with customtkinter
+ctk.set_appearance_mode("dark")
+ctk.set_default_color_theme("blue")
+
+root = ctk.CTk()
 root.title("Gesture Capture UI")
-root.geometry("500x600")
+root.geometry("550x650")
+root.protocol("WM_DELETE_WINDOW", close_app)
 
-style = ttk.Style()
-style.configure("TButton", padding=5, font=("Arial", 12))
+frame = ctk.CTkFrame(root)
+frame.pack(pady=20, padx=20, fill="both", expand=True)
 
-webcam_label = ttk.Label(root)
-webcam_label.pack()
+webcam_label = ctk.CTkLabel(frame, text="", width=400, height=300)
+webcam_label.pack(pady=10)
 update_webcam()
 
-status_label = ttk.Label(root, text="Record gestures by clicking buttons", foreground="black")
+status_label = ctk.CTkLabel(frame, text="Record gestures using the buttons", text_color="white")
 status_label.pack(pady=10)
 
-btn_start = ttk.Button(root, text="Record Start Frame", command=lambda: capture_frame("start"))
-btn_start.pack(pady=5)
+buttons = [
+    ("Record Start Frame", "green", lambda: capture_frame("start")),
+    ("Record Mid1 Frame", "orange", lambda: capture_frame("mid1")),
+    ("Record Mid2 Frame", "purple", lambda: capture_frame("mid2")),
+    ("Record End Frame", "red", lambda: capture_frame("end")),
+    ("Save Gesture", "blue", save_gesture)
+]
 
-btn_mid1 = ttk.Button(root, text="Record Mid1 Frame", command=lambda: capture_frame("mid1"))
-btn_mid1.pack(pady=5)
+for text, color, command in buttons:
+    btn = ctk.CTkButton(frame, text=text, fg_color=color, command=command)
+    btn.pack(pady=5, padx=20, fill="x")
 
-btn_mid2 = ttk.Button(root, text="Record Mid2 Frame", command=lambda: capture_frame("mid2"))
-btn_mid2.pack(pady=5)
-
-btn_end = ttk.Button(root, text="Record End Frame", command=lambda: capture_frame("end"))
-btn_end.pack(pady=5)
-
-btn_save = ttk.Button(root, text="Save Gesture", command=save_gesture)
-btn_save.pack(pady=10)
-
-btn_exit = ttk.Button(root, text="Exit", command=close_app)
-btn_exit.pack(pady=10)
+btn_exit = ctk.CTkButton(frame, text="Exit", fg_color="gray", command=close_app)
+btn_exit.pack(pady=10, padx=20, fill="x")
 
 root.mainloop()
