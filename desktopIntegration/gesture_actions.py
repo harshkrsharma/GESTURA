@@ -13,6 +13,7 @@ GESTURE_ACTIONS = {
 
     "open_chrome": lambda: subprocess.Popen(r"C:\Program Files\Google\Chrome\Application\chrome.exe"),
     "close": lambda: pyautogui.hotkey('alt', 'f4'),
+    "close_window": lambda: pyautogui.hotkey('alt', 'f4'),
     "screenshot": lambda: pyautogui.hotkey('win', 'printscreen'),
     "go": lambda: subprocess.Popen(r'C:/Program Files/Mozilla Firefox/firefox.exe'),
     "good": lambda: subprocess.Popen(r'C:/Program Files/Mozilla Firefox/firefox.exe'),

@@ -13,6 +13,7 @@ isloverlay/.swiftpm/
 isloverlay/migrate_working_dir/
 isloverlay/venv/
 isloverlay/secret.env
+desktopIntegration/venv/
 
 # IntelliJ related
 isloverlay/*.iml
