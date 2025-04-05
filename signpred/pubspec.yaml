@@ -49,6 +49,7 @@ dev_dependencies:
   web_socket_channel: ^3.0.2
   image: ^4.5.3
   http:
+  flutter_tts: ^4.2.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

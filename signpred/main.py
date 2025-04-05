@@ -48,6 +48,7 @@ def load_gesture_data(file_path):
                 }
                 for k, v in gesture_dict.items()
             }
+        print(gesture_dict)
         return gesture_dict
     return {}
 

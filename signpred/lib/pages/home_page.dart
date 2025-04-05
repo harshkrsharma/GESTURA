@@ -11,6 +11,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:web_socket_channel/status.dart' as status;
 import 'package:image/image.dart' as img;
 import 'package:http/http.dart' as http;
+import 'package:flutter_tts/flutter_tts.dart';
 
 class CameraStreamApp extends StatefulWidget {
   const CameraStreamApp({super.key});
@@ -28,6 +29,7 @@ class _CameraStreamAppState extends State<CameraStreamApp> {
   String _detectedSign = "Waiting for sign...";
   bool _isCameraInitialized = false;
   List<String> _detectedWords = [];
+  FlutterTts flutterTts = FlutterTts();
 
   @override
   void initState() {
@@ -71,7 +73,9 @@ class _CameraStreamAppState extends State<CameraStreamApp> {
 
   void _initWebSocket() {
     _channel?.sink.close();
-    _channel = WebSocketChannel.connect(Uri.parse("ws://192.168.17.170:8000/ws"));
+    _channel = WebSocketChannel.connect(
+      Uri.parse("ws://192.168.17.170:8000/ws"),
+    );
 
     _channel?.stream.listen(
       (message) {
@@ -159,6 +163,11 @@ class _CameraStreamAppState extends State<CameraStreamApp> {
     }
   }
 
+  void _speak() async {
+    var result = await flutterTts.speak(_detectedSign);
+    // if (result == 1) setState(() => ttsState = TtsState.playing);
+  }
+
   void _translate() async {
     final uri = Uri.parse("http://192.168.17.170:8000/nlp_process");
 
@@ -216,7 +225,7 @@ class _CameraStreamAppState extends State<CameraStreamApp> {
                     icon: Icon(Icons.accessibility_new_rounded),
                   ),
                   ButtonWidget(
-                    onPressed: () {},
+                    onPressed: _speak,
                     icon: Icon(Icons.volume_up_rounded),
                   ),
                   ButtonWidget(
