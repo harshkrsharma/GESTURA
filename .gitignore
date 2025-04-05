@@ -48,6 +48,9 @@ isloverlay/android/app/profile
 isloverlay/android/app/release
 signpred/secret.env
 signpred/venv/
+venv/
+gestures.json
+sequenceTracking.ipynb
 
 #for signpred app
 # Miscellaneous
