@@ -1,0 +1,30 @@
+<div th:fragment="navbar" xmlns:th="http://www.thymeleaf.org" >
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="/home" class="nav-item">Home</a>
+            <a href="/about" class="nav-item">About</a>
+            <a href="/contact" class="nav-item">Contact</a>
+        </div>
+        <div class="nav-brand">
+            <h1 href="/home" class="nav-item">GESTURA</h1>
+        </div>
+
+        <!-- Show login/signup if NOT logged in -->
+        <div class="auth-links" th:if="${@GetUserName.findUsername() == 'anonymousUser' or @GetUserName.findUsername() == null}">
+            <a href="/login" class="nav-item auth-button">Login</a>
+            <a href="/signup" class="nav-item auth-button">SignUp</a>
+        </div>
+
+        <!-- Show username and logout if logged in -->
+        <div class="auth-links" th:if="${@GetUserName.findUsername() != 'anonymousUser'}">
+            <span class="nav-item username">
+                👤 <span th:text="${@GetUserName.findUsername()}"></span>
+            </span>
+            <form th:action="@{/logout}" method="post" style="display: inline;">
+                <button type="submit" class="nav-item auth-button">Logout</button>
+            </form>
+        </div>
+
+        <button id="theme-toggle" class="theme-button">🌙</button>
+    </nav>
+</div>
